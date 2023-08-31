@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+#  app:
+#    build:
+#      target: build
+#    restart: on-failure
+#    depends_on:
+#      - db
+#    environment:
+#      - DB_PASSWORD=mypassword
+#    ports:
+#      - "8080:8080"
+  db:
+    image: postgres:14.5-alpine
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: avitoSegmentsDb
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
+    driver: local

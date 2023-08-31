@@ -1,0 +1,8 @@
+port: "8080"
+db:
+  user: "postgres"
+  host: "localhost"
+  port: "5432"
+  name: "avitoSegmentsDb"
+  ssl: "disable"
+  driver: "postgres"

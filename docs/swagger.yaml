@@ -1,0 +1,219 @@
+basePath: /
+definitions:
+  handlers.errorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.CreateSegmentResponse:
+    properties:
+      id:
+        type: integer
+    type: object
+  models.GetUserSegmentsRequest:
+    properties:
+      user-id:
+        type: integer
+    type: object
+  models.GetUserSegmentsResponse:
+    properties:
+      slugs:
+        items:
+          type: string
+        type: array
+    type: object
+  models.ManageUserToSegmentsRequest:
+    properties:
+      slugs-to-add:
+        items:
+          type: string
+        type: array
+      slugs-to-remove:
+        items:
+          type: string
+        type: array
+      user-id:
+        type: integer
+    type: object
+  models.ManageUserToSegmentsResponse:
+    properties:
+      slugs-that-have-been-added:
+        items:
+          type: string
+        type: array
+      slugs-that-have-been-removed:
+        items:
+          type: string
+        type: array
+      user-id:
+        type: integer
+    type: object
+  models.SegmentRequest:
+    properties:
+      slug:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API server for management users segments
+  title: Backend Trainee Assignment 2023 API
+  version: "1.0"
+paths:
+  /segment:
+    delete:
+      consumes:
+      - application/json
+      description: delete segment
+      operationId: delete-segment
+      parameters:
+      - description: slug
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.SegmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+      summary: DeleteSegment
+      tags:
+      - segment
+    post:
+      consumes:
+      - application/json
+      description: create segment
+      operationId: create-segment
+      parameters:
+      - description: slug
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.SegmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateSegmentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+      summary: CreateSegment
+      tags:
+      - segment
+  /users-segments:
+    get:
+      consumes:
+      - application/json
+      description: get all user segments
+      operationId: get-user-segments
+      parameters:
+      - description: user id
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetUserSegmentsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserSegmentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+      summary: GetUserSegments
+      tags:
+      - users-segment
+    post:
+      consumes:
+      - application/json
+      description: add and remove segments from user
+      operationId: manage-user-to-segments
+      parameters:
+      - description: slugs to add and remove, user id
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.ManageUserToSegmentsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ManageUserToSegmentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handlers.errorResponse'
+      summary: ManageUserToSegments
+      tags:
+      - users-segment
+swagger: "2.0"
